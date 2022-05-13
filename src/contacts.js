@@ -12,15 +12,17 @@ function addContacts() {
   contacts.appendChild(fragment);
 }
 
-contacts.addEventListener("scroll", (e) => {
-  const items = Array.from(contacts.getElementsByClassName("contact"));
-  const itemOffsets = items.map((item) => item.offsetTop);
-  const topItemIndex = itemOffsets.findIndex(
-    (offset) => contacts.scrollTop - offset <= -18
-  );
-  if (topItemIndex !== -1) {
-    stickyHeader.textContent = items[topItemIndex].textContent;
-  }
+contacts.addEventListener("scroll", (e) => { 
+  const items = contacts.getElementsByClassName("contact");
+    let index = Math.floor(contacts.scrollTop / 18);//или items[0].offsetTop вместо 18
+    console.log(index);
+    if (index == 0)
+    {
+      stickyHeader.textContent =  items[index].textContent;
+    }
+    else {
+      stickyHeader.textContent  =  items[index - 1].textContent;//можно было просто сразу записать index, но не стала привязываться к конкретному случаю
+    }    
 });
 
 addContacts();
